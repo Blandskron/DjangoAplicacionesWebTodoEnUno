@@ -28,8 +28,7 @@ SECRET_KEY = 'django-insecure-4uk@*mj$h2%3n=c8+^o4y8a9o6i6_avv^%35*v&y(h%ms+@sxt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -41,15 +40,58 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken',
-    'dj_rest_auth',
     'drf_spectacular',
     'corsheaders',
     'api_products',
     'products',
-    'api_auth',
-    'auth_front',
 ]
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Blandskron',
+    'DESCRIPTION': 'Blandskron API',
+    'VERSION': '1.0.0',
+    'TOS': 'https://www.example.com/terminos/',
+    'CONTACT': {
+        'name': 'Nombre de Contacto',
+        'email': 'contacto@example.com',
+        'url': 'https://www.example.com/contacto',
+    },
+    'LICENSE': {
+        'name': 'MIT License',
+        'url': 'https://opensource.org/licenses/MIT',
+    },
+    'SERVERS': [
+        {
+            'url': 'https://api.example.com',
+            'description': 'Servidor de Producción'
+        },
+        {
+            'url': 'https://staging-api.example.com',
+            'description': 'Servidor de Staging'
+        },
+    ],
+    'SCHEMA_PATH_PREFIX': r'/api/v[0-9]',
+    'SERVE_INCLUDE_SCHEMA': True,
+    'SERVE_AUTHENTICATION': ['rest_framework.authentication.BasicAuthentication'],
+    'SCHEMA_COERCE_PATH_PK': True,
+    'SCHEMA_COERCE_METHOD_NAMES': {
+        'retrieve': 'get',
+        'destroy': 'delete'
+    },
+    'SERVE_URLCONF': 'api_products.urls',
+    'APPEND_COMPONENTS': {
+        'securitySchemes': {
+            'basicAuth': {
+                'type': 'http',
+                'scheme': 'basic'
+            }
+        }
+    },
+    'AUTHENTICATION_WHITELIST': [
+        'rest_framework.authentication.SessionAuthentication'
+    ],
+    'DISABLE_ERRORS_AND_WARNINGS': False,
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
@@ -63,22 +105,10 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.sites.middleware.CurrentSiteMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
-# Permitir todas las orígenes (no recomendado para producción)
-CORS_ALLOW_ALL_ORIGINS = True
-
-# Políticas de seguridad
-SECURE_REFERRER_POLICY = 'same-origin'
-SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin'
-
-# Configuración de encabezados de seguridad
-X_FRAME_OPTIONS = 'DENY'
-X_CONTENT_TYPE_OPTIONS = 'nosniff'
-
-# Política de cookies y variaciones
+# CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'allinone.urls'

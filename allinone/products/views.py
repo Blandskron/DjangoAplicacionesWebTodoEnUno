@@ -5,7 +5,7 @@ from django.conf import settings
 # Import requests to interact with the API
 import requests
 
-API_BASE_URL = 'http://localhost:8000/api/products/'
+API_BASE_URL = 'http://127.0.0.1:8000/api/products/'
 
 
 def product_list(request):
