@@ -41,16 +41,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
     'drf_spectacular',
     'corsheaders',
     'api_products',
     'products',
+    'api_auth',
+    'auth_front',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
-
+   
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -60,9 +64,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
 ]
 
+# Permitir todas las orígenes (no recomendado para producción)
 CORS_ALLOW_ALL_ORIGINS = True
+
+# Políticas de seguridad
+SECURE_REFERRER_POLICY = 'same-origin'
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin'
+
+# Configuración de encabezados de seguridad
+X_FRAME_OPTIONS = 'DENY'
+X_CONTENT_TYPE_OPTIONS = 'nosniff'
+
+# Política de cookies y variaciones
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'allinone.urls'
 

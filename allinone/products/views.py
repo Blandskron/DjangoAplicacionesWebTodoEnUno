@@ -7,9 +7,11 @@ import requests
 
 API_BASE_URL = 'http://localhost:8000/api/products/'
 
+
 def product_list(request):
     response = requests.get(API_BASE_URL)
     products = response.json()
+
 
     # Añade MEDIA_URL a cada imagen
     for product in products:
