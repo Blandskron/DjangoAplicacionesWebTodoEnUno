@@ -21,9 +21,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('docs.urls')),
-    path('api/', include('api_products.urls')),
-    path('', include('products.urls')), 
+    path('api/', include('docs.urls')),  # Swagger documentation routes
+    path('api-products/', include('api_products.urls')),  # Prefijo específico para productos
+    path('auth-api/', include('auth_api.urls')),  # Prefijo específico para auth API
+    path('products/', include('products.urls')),
     path('auth/', include('auth_front.urls')),
 ]
 

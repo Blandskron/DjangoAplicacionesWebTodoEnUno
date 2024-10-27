@@ -48,10 +48,9 @@ INSTALLED_APPS = [
 ]
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Blandskron',
-    'DESCRIPTION': 'Blandskron API',
+    'TITLE': 'Blandskron API',
+    'DESCRIPTION': 'API de Blandskron que incluye funcionalidades de autenticación y gestión de productos.',
     'VERSION': '1.0.0',
-    'SCHEMA_PATH_PREFIX': r''
 }
 
 REST_FRAMEWORK = {

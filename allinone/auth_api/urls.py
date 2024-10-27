@@ -1,12 +1,7 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 from .views import CreateUserAPIView, CheckUserRoleAPIView
 
-router = DefaultRouter()
-router.register(r'create_user', CreateUserAPIView, basename='create_user')
-router.register(r'check_user_role', CheckUserRoleAPIView, basename='check_user_role')
-
-# Se incluyen las rutas del router
 urlpatterns = [
-    path('', include(router.urls)),
+    path('create_user/', CreateUserAPIView.as_view(), name='create_user'),
+    path('check_user_role/', CheckUserRoleAPIView.as_view(), name='check_user_role'),
 ]
