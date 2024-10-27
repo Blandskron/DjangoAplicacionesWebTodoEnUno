@@ -1,25 +1,47 @@
 <!-- templates/includes/header.html -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">MiSitio</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'product_list' %}">Product List</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'product_create' %}">Product Create</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'swagger-ui' %}" target="_blank">Swagger-ui</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'redoc' %}" target="_blank">Redoc</a>
-          </li>
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">MiSitio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <!-- Solo permite la vista pública si no está autenticado -->
+        {% if not request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'product_list_public' %}">Product List</a>
+        </li>
+        {% elif is_admin %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'product_list_admin' %}">Admin Product List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'product_create' %}">Product Create</a>
+        </li>
+        {% elif is_client %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'product_list_client' %}">Client Product List</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'swagger-ui' %}" target="_blank">Swagger-ui</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'redoc' %}" target="_blank">Redoc</a>
+        </li>
+        
+        <!-- Sección de autenticación dinámica -->
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout ({{ request.user.username }})</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+        {% endif %}
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
