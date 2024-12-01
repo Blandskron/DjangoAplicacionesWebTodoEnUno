@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+# Definición de las rutas para la gestión de productos
 urlpatterns = [
     path('public/', views.product_list_public, name='product_list_public'),
     path('client/', views.product_list_client, name='product_list_client'),

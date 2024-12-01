@@ -1,5 +1,3 @@
-# views.py
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -7,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 
+# Vista para el registro de usuarios
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -29,6 +28,7 @@ def register(request):
 
     return render(request, 'auth_front/register.html', {'form': form})
 
+# Vista para el inicio de sesión
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -52,6 +52,7 @@ def login_view(request):
 
     return render(request, 'auth_front/login.html', {'form': form})
 
+# Vista para el cierre de sesión (restringida a usuarios autenticados)
 @login_required
 def logout_view(request):
     logout(request)

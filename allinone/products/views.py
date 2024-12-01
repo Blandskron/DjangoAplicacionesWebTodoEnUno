@@ -5,7 +5,8 @@ import requests
 from django.contrib import messages
 import logging
 
-API_BASE_URL = 'http://127.0.0.1:8000/api/products/'
+# URL base para interactuar con la API de productos
+API_BASE_URL = 'http://127.0.0.1:8000/api-products/products/'
 
 def is_admin(user):
     return user.is_authenticated and user.groups.filter(name='Admin').exists()
